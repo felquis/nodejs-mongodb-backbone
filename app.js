@@ -1,37 +1,31 @@
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
 
-/**
- * Module dependencies.
- */
+function mainLoop () {
+	console.log('Starting application');
+	eventEmitter.emit('ApplicationStart');
 
-var express = require('express');
-var app = express();
+	console.log('Running Application');
+	eventEmitter.emit('ApplicationRun');
 
-app.set('view engine', 'jade');
-app.set('view options', { layout: true });
-app.set('views', __dirname + '/views');
+	console.log('Stopping Application');
+	eventEmitter.emit('ApplicationStop');
+}
 
-app.get('/stooges/:name?', function (req, res, next) {
-	var name = req.params.name;
+function onApplicationStart () {
+	console.log('Handling Application Start Event');
+}
 
-	switch (name ? name.toLowerCase() : '') {
-		case 'larry':
-		case 'curly':
-		case 'moe':
-			res.render('stooges', { stooge: name});
-			break;
-		default:
-			next();
-	}
-});
+function onApplicationRun () {
+	console.log('Handling Application Run Event');
+}
 
-app.get('/stooges/*?', function (req, res) {
-	res.render('stooges', { stooge: null });
-});
+function onApplicationStop () {
+	console.log('Handling Application Stop Event');
+}
 
-app.get('/?', function (req, res) {
-	res.render('index');
-});
+eventEmitter.on('ApplicationStart', onApplicationStart);
+eventEmitter.on('ApplicationRun', onApplicationRun);
+eventEmitter.on('ApplicationStop', onApplicationStop);
 
-var port = 8080;
-app.listen(port);
-console.log('Listening on port ' + port);
+mainLoop();
