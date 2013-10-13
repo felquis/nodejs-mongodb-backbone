@@ -1,0 +1,9 @@
+{% extends layout %}
+
+{% block content %}
+	{% if (stooge) %}
+		<p>{{ stooge }} is my favorite stooge</p>
+	{% else %}
+		<p>no stooges listed</p>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-backbonejs-mongodb",
+  "version": "0.0.0",
+  "authors": [
+    "Felquis Gimenes <frgformenton@gmail.com>"
+  ],
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "socket.io-client": "~0.9.16"
+  }
+}

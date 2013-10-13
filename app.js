@@ -4,24 +4,36 @@
  */
 
 var express = require('express');
+var http = require('http');
 var app = express();
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 
-app.set('view engine', 'jade');
-app.set('view options', { layout: true });
-app.set('views', __dirname + '/views');
+app.configure(function () {
+	app.set('view engine', 'twig');
+	app.set('view options', { layout: true });
+	app.set('views', __dirname + '/views');
+	app.use(express.static(__dirname + '/'));
+});
 
-app.get('/stooges/:name?', function (req, res, next) {
-	var name = req.params.name;
+app.get('/chat', function (req, res, next) {
+	res.render('chat');
+});
 
-	switch (name ? name.toLowerCase() : '') {
-		case 'larry':
-		case 'curly':
-		case 'moe':
-			res.render('stooges', { stooge: name});
-			break;
-		default:
-			next();
-	}
+var sendChat = function (title, text) {
+	io.sockets.emit('message', {
+		title: title,
+		contents: text
+	});
+};
+
+io.sockets.on('connection', function (socket) {
+
+	sendChat('Welcome to Stooge chat', 'The Stooges  are on the line');
+
+	socket.on('chat', function (data) {
+		sendChat('You', data.text);
+	});
 });
 
 app.get('/stooges/*?', function (req, res) {
@@ -33,5 +45,5 @@ app.get('/?', function (req, res) {
 });
 
 var port = 8080;
-app.listen(port);
+server.listen(port);
 console.log('Listening on port ' + port);
