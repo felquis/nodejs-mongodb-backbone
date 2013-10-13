@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    h1 BackboneJS Example 3-1
+
+block script
+    script(src='/bower_components/underscore/underscore-min.js')
+    script(src='/bower_components/backbone/backbone-min.js')
+
+    script
+        var Stooge = Backbone.Model.extend({
+                defaults: {
+                    name   : 'Guy Incognito',
+                    power  : 'Classified',
+                    friends: []
+                },
+                initialize: function () {
+                    // Faz a inicialização
+                }
+            });
+
+        var account = new Stooge({
+                name   : 'Larry',
+                power  : 'Baldness',
+                friends: ['Curly', 'Moe']
+            });

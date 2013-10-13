@@ -1,0 +1,15 @@
+{
+  "name": "nodejs-backbonejs-mongodb",
+  "version": "0.0.0",
+  "authors": [
+    "Felquis Gimenes <frgformenton@gmail.com>"
+  ],
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "backbone": "~1.0.0",
+    "underscore": "~1.5.2"
+  }
+}
