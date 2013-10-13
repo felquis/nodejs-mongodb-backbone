@@ -1,7 +1,11 @@
 extends layout
 
 block content
-    #certificate
+    #certificate teste
+
+    script#tpl-certificate(type='text/template')
+        <h1><%= name %></h1>
+        <p>DOB: <%= dob %></p>
 
 block script
     script(src='/bower_components/jquery/jquery.min.js')
@@ -10,11 +14,17 @@ block script
 
     script
         var CertificateView = Backbone.View.extend({
+                template: _.template($('#tpl-certificate').html()),
                 initialize: function () {
                     this.render();
                 },
                 render: function () {
-                    $(this.el).html("<h1>Guy Incognito</h1><p>DOB: Match 2, 1967</p>")
+                    var templateArgs = {
+                        name: 'Guy Incognito',
+                        dob : 'March 2, 1967'
+                    };
+
+                    $(this.el).html(this.template(templateArgs));
                 }
             });
 
