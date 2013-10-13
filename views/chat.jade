@@ -1,0 +1,25 @@
+extends layout
+
+block content
+	div#chat-live
+
+	form(onsubmit='return submitChat(this);')
+		input(type='text', id='chat', name='chat')
+		input(type='submit', value='Send chat')
+
+block scripts
+	script(src='/socket.io/socket.io.js')
+	script
+		var socket = io.connect('http://');
+
+		socket.on('message', function (data) {
+			document.getElementById('chat-live').innerHTML = '<p><b>' + data.title + '</b>: ' + data.contents + '</p>';
+		});
+
+		var submitChat = function (form) {
+
+			socket.emit('chat', { text: form.chat.value });
+			form.chat.value = "";
+
+			return false;
+		}

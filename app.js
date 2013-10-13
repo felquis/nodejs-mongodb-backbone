@@ -10,7 +10,7 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
 app.configure(function () {
-	app.set('view engine', 'twig');
+	app.set('view engine', 'jade');
 	app.set('view options', { layout: true });
 	app.set('views', __dirname + '/views');
 	app.use(express.static(__dirname + '/'));
