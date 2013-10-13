@@ -1,26 +1,21 @@
 extends layout
 
 block content
-    h1 BackboneJS Example 3-1
+    #certificate
 
 block script
+    script(src='/bower_components/jquery/jquery.min.js')
     script(src='/bower_components/underscore/underscore-min.js')
     script(src='/bower_components/backbone/backbone-min.js')
 
     script
-        var Stooge = Backbone.Model.extend({
-                defaults: {
-                    name   : 'Guy Incognito',
-                    power  : 'Classified',
-                    friends: []
-                },
+        var CertificateView = Backbone.View.extend({
                 initialize: function () {
-                    // Faz a inicialização
+                    this.render();
+                },
+                render: function () {
+                    $(this.el).html("<h1>Guy Incognito</h1><p>DOB: Match 2, 1967</p>")
                 }
             });
 
-        var account = new Stooge({
-                name   : 'Larry',
-                power  : 'Baldness',
-                friends: ['Curly', 'Moe']
-            });
+        var certificate_view = new CertificateView({ el: $("#certificate") });
